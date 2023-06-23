@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Registered Users</title>
+  </head>
+  <body>
+    <h1>Registered Users</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Gender</th>
+          <th>Phone</th>
+        </tr>
+      </thead>
+      <tbody id="userList"></tbody>
+    </table>
+    <a href="/users/download-csv">Download CSV</a>
+    <script>
+      fetch('/users')
+        .then((response) => response.json())
+        .then((data) => {
+          const userList = document.getElementById('userList');
+          data.forEach((user) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${user.id}</td>
+              <td>${user.name}</td>
+              <td>${user.email}</td>
+              <td>${user.gender}</td>
+              <td>${user.phone}</td>
+            `;
+            userList.appendChild(row);
+          });
+        });
+    </script>
+  </body>
+</html>
